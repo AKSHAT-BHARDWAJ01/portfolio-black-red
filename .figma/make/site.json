@@ -1,0 +1,10 @@
+{
+  "description": "An interactive portfolio showcasing Akshat Bhardwaj’s software, full-stack, and AI work through immersive motion, project highlights, and collaboration links.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

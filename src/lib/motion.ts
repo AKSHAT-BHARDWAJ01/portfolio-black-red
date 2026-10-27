@@ -5,7 +5,8 @@ import Lenis from 'lenis'
 
 gsap.registerPlugin(ScrollTrigger, Physics2DPlugin)
 
-export const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
+export const REDUCED = '(prefers-reduced-motion: reduce)'
+export const reducedMotion = () => window.matchMedia(REDUCED).matches
 const isMobile = () => window.innerWidth < 768
 
 /** Per-object fall configuration (data attributes override defaults). */
@@ -44,7 +45,15 @@ function configFor(el: HTMLElement, i: number): FallConfig {
  * When crossed we kill the physics tween, clamp to the floor and hand off to a
  * deterministic impact → rebound → settle → exit timeline.
  */
-export function createGravityTransition(outgoing: HTMLElement, incoming: HTMLElement) {
+export interface GravityTransition {
+  /** Scroll position (px) at which the fall triggers. */
+  start: () => number
+  /** Jump straight to the fallen end state without animating (direct navigation, reload mid-page). */
+  settle: () => void
+  kill: () => void
+}
+
+export function createGravityTransition(outgoing: HTMLElement, incoming: HTMLElement): GravityTransition {
   const els = Array.from(outgoing.querySelectorAll<HTMLElement>('[data-fall]'))
   let running: gsap.core.Animation[] = []
   let state: 'idle' | 'fallen' = 'idle'
@@ -55,10 +64,30 @@ export function createGravityTransition(outgoing: HTMLElement, incoming: HTMLEle
     gsap.killTweensOf(els)
   }
 
-  const fall = () => {
+  // A fallen section is invisible: keep it out of the tab order and the accessibility tree.
+  // `.is-fallen` also clears its background so the incoming section (layered beneath) shows through.
+  const setFallen = (on: boolean) => {
+    outgoing.style.pointerEvents = on ? 'none' : ''
+    outgoing.inert = on
+    outgoing.classList.toggle('is-fallen', on)
+  }
+
+  const settle = () => {
     if (state === 'fallen') return
     state = 'fallen'
     killAll()
+    gsap.set(els, { opacity: 0 })
+    setFallen(true)
+  }
+
+  const fall = () => {
+    if (state === 'fallen') return
+    // Already scrolled past (e.g. reload mid-page): nothing to watch, skip straight to the end state.
+    if (outgoing.getBoundingClientRect().bottom <= 0) return settle()
+    state = 'fallen'
+    killAll()
+    // The intro clips hero lines with their masks; falling text must not be clipped.
+    outgoing.querySelectorAll<HTMLElement>('.mask').forEach((m) => (m.style.overflow = ''))
     const vh = window.innerHeight
     // Read layout once, before animating (no reads inside frames).
     const floors = els.map((el) => {
@@ -95,21 +124,24 @@ export function createGravityTransition(outgoing: HTMLElement, incoming: HTMLEle
       })
       running.push(spin, phys)
     })
-    outgoing.style.pointerEvents = 'none'
+    setFallen(true)
   }
 
+  // Authored resting offsets live in the CSS `translate`/`rotate` properties, which GSAP's
+  // `transform` never touches — so restoring to zero returns every element to its designed pose.
   const restore = () => {
     if (state === 'idle') return
     state = 'idle'
     killAll()
-    outgoing.style.pointerEvents = ''
+    setFallen(false)
     running.push(
       gsap.to(els, { x: 0, y: 0, rotation: 0, scaleX: 1, scaleY: 1, opacity: 1, duration: 0.7, ease: 'power3.out', stagger: 0.03 }),
     )
   }
 
-  // Pin the outgoing layer (no spacing) so the incoming section scrolls up beneath it.
-  const pin = ScrollTrigger.create({ trigger: outgoing, start: 'top top', end: () => '+=' + window.innerHeight, pin: true, pinSpacing: false })
+  // Pin the outgoing layer (no spacing) so the incoming section scrolls up beneath it. Pinning from
+  // 'bottom bottom' equals 'top top' for a viewport-high panel, and lets a taller one be read fully first.
+  const pin = ScrollTrigger.create({ trigger: outgoing, start: 'bottom bottom', end: () => '+=' + window.innerHeight, pin: true, pinSpacing: false })
   const trig = ScrollTrigger.create({
     trigger: incoming,
     start: 'top 75%',
@@ -117,7 +149,11 @@ export function createGravityTransition(outgoing: HTMLElement, incoming: HTMLEle
     onLeaveBack: restore,
     onRefresh: (self) => { if (self.progress === 0) restore() },
   })
-  return () => { killAll(); pin.kill(); trig.kill(); gsap.set(els, { clearProps: 'all' }) }
+  return {
+    start: () => trig.start,
+    settle,
+    kill: () => { killAll(); pin.kill(); trig.kill(); setFallen(false); gsap.set(els, { clearProps: 'all' }) },
+  }
 }
 
 /** Lenis drives scroll; GSAP's ticker is the single RAF loop for both. */

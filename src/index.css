@@ -57,7 +57,7 @@ section:focus, main:focus, h1:focus { outline: none; }
 
 /* ---- Hero ---- */
 .panel { position: relative; min-height: 100vh; min-height: 100svh; padding: 110px var(--gutter) 48px; }
-.z3 { z-index: 30; } .z2 { z-index: 20; background: var(--s1); } .z1 { z-index: 10; position: relative; background: var(--bg); }
+.z3 { z-index: 30; } .z2 { z-index: 20; background: var(--s1); } .z1 { z-index: 10; position: relative; }
 /* Outgoing panels sit above the incoming one; once fallen, only the falling pieces may cover it. */
 .panel { transition: background-color .6s var(--ease); } .panel.is-fallen { background-color: transparent; }
 .idx { transition: opacity .6s var(--ease); } .is-fallen .idx { opacity: 0; }
@@ -120,22 +120,45 @@ section:focus, main:focus, h1:focus { outline: none; }
 .job-minor ul { margin-top: 14px; display: grid; gap: 8px; color: var(--tx2); font-size: 14px; line-height: 1.5; list-style: '— '; padding-left: 18px; }
 
 /* ---- Work ---- */
-.projects { display: grid; grid-template-columns: 1fr 1fr; column-gap: 48px; }
-.project { position: relative; display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: center; margin-bottom: 140px; }
-.project.major { grid-column: 1 / -1; }
-.project.minor { grid-template-columns: 1fr; gap: 24px; margin-bottom: 100px; align-content: start; } .p-webopedia { margin-top: 80px; }
-.p-taskflow { grid-template-columns: 1fr 1.4fr; } .p-taskflow .pcard { order: 2; } .p-taskflow .pnum { left: auto; right: 0; }
-.pnum { position: absolute; top: -100px; left: -10px; font-size: 140px; font-weight: 700; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.12); pointer-events: none; }
-.pcard { display: block; width: 100%; aspect-ratio: 16/10; overflow: visible; cursor: pointer; }
+.work { position: relative; z-index: 10; }
+.hl { display: block; overflow: hidden; padding: .02em 0 .14em; margin-bottom: -.1em; } .hl > * { display: block; }
+.work-rule { height: 1px; margin-top: 28px; background: linear-gradient(90deg, var(--cyan), var(--indigo), transparent); max-width: 560px; }
+.work-sub { margin-top: 16px; color: var(--tx2); max-width: 520px; line-height: 1.55; }
+.projects { display: block; }
+.project { --accent: var(--indigo); position: relative; display: grid; align-items: center; gap: 56px; margin-bottom: 180px; }
+.p-healthcare-ai { --accent: var(--cyan); grid-template-columns: 1.5fr 1fr; }
+.p-taskflow { --accent: var(--indigo); grid-template-columns: 1fr 1.5fr; } .p-taskflow .pcard { order: 2; } .p-taskflow .pnum { left: auto; right: 0; }
+.p-burry-ai { --accent: var(--yellow); grid-template-columns: 1.1fr 1fr; padding-left: 6vw; }
+.p-webopedia { --accent: #c9a6ff; grid-template-columns: 1fr 1.15fr; padding-right: 4vw; margin-bottom: 80px; } .p-webopedia .pcard { order: 2; border-radius: 36px; aspect-ratio: 16/11; } .p-webopedia .pnum { left: auto; right: 0; }
+.pnum { position: absolute; top: -100px; left: -10px; font-size: 140px; font-weight: 700; line-height: 1; color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--accent) 38%, transparent); pointer-events: none; }
+.pcard { display: block; width: 100%; aspect-ratio: 16/10; overflow: visible; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 40px 90px -40px color-mix(in srgb, var(--accent) 55%, transparent); }
+.project .holo::before { background: linear-gradient(110deg, var(--accent), transparent 55%, var(--accent)); background-size: 300% 100%; }
 .pv { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
 .pv svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .illus-badge { position: absolute; left: 16px; bottom: 14px; font: 11px/1 'JetBrains Mono', monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); padding: 6px 8px; border: 1px dashed rgba(94,242,255,.7); border-radius: 6px; background: rgba(9,10,13,.7); }
 .pinfo h3 { font-size: 40px; font-weight: 700; letter-spacing: -.03em; } .pinfo > p { color: var(--tx2); line-height: 1.55; margin: 12px 0 20px; }
-.pinfo .kind { color: var(--indigo); margin: 4px 0 0; font-size: 14px; }
-.marker { display: inline-block; margin-bottom: 10px; color: var(--cyan); }
-.tags { display: flex; gap: 8px; flex-wrap: wrap; } .tags li { font: 12px 'JetBrains Mono'; padding: 5px 10px; border: 1px solid var(--line); border-radius: 6px; color: var(--tx2); }
+.pinfo .kind { color: var(--accent); margin: 4px 0 0; font-size: 14px; }
+.marker { display: inline-block; margin-bottom: 10px; color: var(--accent); }
+.tags { display: flex; gap: 8px; flex-wrap: wrap; } .tags li { font: 12px 'JetBrains Mono'; padding: 5px 10px; border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent); border-radius: 6px; color: var(--tx2); }
 .plinks { display: flex; gap: 8px 24px; flex-wrap: wrap; margin-top: 22px; font-size: 15px; }
-.plinks a { border-bottom: 1px solid var(--line-control); padding: 8px 0 2px; } .plinks a:hover { border-color: var(--tx); }
+.plinks a { border-bottom: 1px solid var(--line-control); padding: 8px 0 2px; } .plinks a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---- Nerve line: sits above section backgrounds (all transparent) and beneath every piece of content ---- */
+.exp, .work, .research, .toolkit, .contact { position: relative; z-index: 10; }
+main { position: relative; }
+.nerve { position: absolute; left: 0; top: 0; z-index: 5; pointer-events: none; overflow: visible; }
+.nerve .track { stroke: rgba(255,255,255,.07); stroke-width: 1; }
+.nerve .seg { stroke-width: 2; } .nerve .seg.glow { stroke-width: 8; opacity: .14; }
+.nerve .twig { stroke-width: 1.4; opacity: .7; }
+.nerve .node .core { fill: var(--bg); stroke: currentColor; stroke-width: 1.5; opacity: .5; transform-box: fill-box; transform-origin: center; transform: scale(.7); transition: transform .5s var(--ease), opacity .5s, fill .5s; }
+.nerve .node .ring { fill: none; stroke: currentColor; stroke-width: 1; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.4); transition: transform .6s var(--ease), opacity .6s; }
+.nerve .node.on .core { fill: currentColor; opacity: 1; transform: scale(1); }
+.nerve .node.on .ring { opacity: .45; transform: scale(1); animation: pulse 2.8s ease-out infinite; }
+@keyframes pulse { 0% { transform: scale(.7); opacity: .5; } 100% { transform: scale(1.5); opacity: 0; } }
+/* Reduced motion: no scroll drawing runs, so the finished line is simply shown. */
+@media (prefers-reduced-motion: reduce) {
+  .nerve .seg, .nerve .twig { stroke-dashoffset: 0; } .nerve .node .core { fill: currentColor; opacity: 1; transform: none; } .nerve .node .ring { display: none; }
+}
 
 /* ---- Research ---- */
 .research { padding: 120px var(--gutter) 80px; }
@@ -185,7 +208,7 @@ section:focus, main:focus, h1:focus { outline: none; }
 @media (max-width: 1023px) {
   .avail, .scroll-ind { display: none; } .nav { width: min(920px, calc(100% - 64px)); }
   .art-2 { top: 72vh; }
-  .project, .p-taskflow { gap: 40px; }
+  .projects .project { gap: 40px; }
   .pub-row { grid-template-columns: 1fr; }
   .cs-visual { grid-template-columns: 1fr; }
 }
@@ -193,8 +216,8 @@ section:focus, main:focus, h1:focus { outline: none; }
 @media (min-width: 768px) and (max-width: 1023px) {
   .about { grid-template-columns: 1fr; align-content: center; }
   .about-copy { max-width: 600px; }
-  .project.major, .p-taskflow { grid-template-columns: 1fr; } .p-taskflow .pcard { order: 0; }
-  .p-taskflow .pnum { left: -10px; right: auto; }
+  .projects .project { grid-template-columns: 1fr; padding: 0; } .projects .project .pcard { order: 0; aspect-ratio: 16/10; }
+  .projects .project .pnum { left: -10px; right: auto; }
   .nav-links { gap: 18px; }
 }
 /* ---- Mobile (<768) ---- */
@@ -221,9 +244,8 @@ section:focus, main:focus, h1:focus { outline: none; }
   .job-head h3 { font-size: 36px; } .meta { text-align: left; }
   .job-list, .job-minor { grid-template-columns: 1fr; } .job-list li:first-child p { font-size: 17px; }
   .job-minor article { padding: 20px; }
-  .projects, .project.major, .p-taskflow { grid-template-columns: 1fr; } .p-taskflow .pcard { order: 0; }
-  .project, .project.minor { gap: 20px; margin-bottom: 72px; } .p-webopedia { margin-top: 0; }
-  .pnum, .p-taskflow .pnum { font-size: 80px; top: -46px; left: auto; right: 0; }
+  .projects .project { grid-template-columns: 1fr; padding: 0; gap: 20px; margin-bottom: 72px; } .projects .project .pcard { order: 0; aspect-ratio: 16/10; }
+  .projects .project .pnum { font-size: 80px; top: -46px; left: auto; right: 0; }
   .pinfo h3 { font-size: 32px; }
   .illus-badge { left: 10px; bottom: 10px; font-size: 9px; padding: 5px 6px; }
   .honors { grid-template-columns: 1fr; gap: 28px; margin-top: 48px; }

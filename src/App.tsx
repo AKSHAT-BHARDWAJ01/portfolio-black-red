@@ -1,10 +1,14 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
-import { createGravityTransition, initLenis, initReveals, reducedMotion, type GravityTransition } from './lib/motion'
+import { createGravityTransition, initLenis, initProjects, initReveals, reducedMotion, type GravityTransition } from './lib/motion'
 import { CAPABILITIES, HONORS, INTERNSHIPS, JULLEY, JULLEY_STACK, LINKS, PRINCIPLES, PROJECTS, PUBLICATION, TOOLKIT } from './content'
 import { Nav } from './components/Nav'
+import { NerveLine } from './components/NerveLine'
 import { CaseStudy } from './components/CaseStudy'
 import { ProjectVisual } from './components/ProjectVisual'
+
+const ACCENT: Record<string, string> = { 'healthcare-ai': '#5ef2ff', taskflow: '#8982ff', 'burry-ai': '#ffe86b', webopedia: '#c9a6ff' }
+const SIDE: Record<string, string> = { 'healthcare-ai': 'el', taskflow: 'er', 'burry-ai': 'el', webopedia: 'er' }
 
 const caseFromHash = () => {
   const slug = /^#\/work\/([\w-]+)$/.exec(location.hash)?.[1]
@@ -87,6 +91,7 @@ export default function App() {
       const $ = (s: string) => r.querySelector<HTMLElement>(s)!
       transitions.current = [createGravityTransition($('#hero'), $('#about')), createGravityTransition($('#about'), $('#experience'))]
       initReveals(r)
+      initProjects(r)
       const masks = r.querySelectorAll<HTMLElement>('#hero .mask')
       gsap.set(masks, { overflow: 'hidden' })
       gsap.from('.hero-line', { yPercent: 110, opacity: 0, duration: 1.1, stagger: 0.09, ease: 'expo.out', onComplete: () => gsap.set(masks, { clearProps: 'overflow' }) })
@@ -122,6 +127,7 @@ export default function App() {
       <a className="skip" href="#main" onClick={link('#main')}>Skip to content</a>
       <Nav go={go} lock={lock} />
       <main id="main" tabIndex={-1}>
+        <NerveLine />
         <section id="hero" className="panel z3" tabIndex={-1} aria-labelledby="hero-title">
           <p className="label hero-eyebrow" data-fall>Platform engineering · Full-stack · AI/ML</p>
           <h1 id="hero-title" className="hero-h" aria-label="I build systems. I explore AI. I make ideas work.">
@@ -141,7 +147,7 @@ export default function App() {
             <div className="art-2" data-depth="-24"><div className="glass frag" data-fall><span className="dot" /> rag.retrieve(query)</div></div>
             <div className="art-3" data-depth="16"><div className="prism-orb" data-fall /></div>
           </div>
-          <div className="scroll-ind" aria-hidden data-fall>Scroll<span /></div>
+          <div className="scroll-ind" aria-hidden data-fall>Scroll to follow the thread<span /></div>
         </section>
 
         <section id="about" className="panel z2 about" tabIndex={-1} aria-labelledby="about-title">
@@ -162,7 +168,7 @@ export default function App() {
         </section>
 
         <section id="experience" className="z1 exp" tabIndex={-1} aria-labelledby="exp-title">
-          <header className="sec-head" data-reveal><span className="label">02 · Experience</span><h2 id="exp-title">Production systems,<br />and research.</h2></header>
+          <header className="sec-head" data-reveal><span className="label">02 · Experience</span><h2 id="exp-title" data-node="gl" data-accent="#8982ff">Production systems,<br />and research.</h2></header>
           <div className="how" data-reveal="stagger">
             <span className="label how-label">How I work</span>
             {PRINCIPLES.map(([t, d], i) => (
@@ -170,24 +176,24 @@ export default function App() {
           </div>
           <article className="job-main" data-reveal>
             <div className="job-head">
-              <div><span className="label now"><i />Current</span><h3>Platform Engineer</h3><p className="org">JulleyOnline.in</p></div>
+              <div><span className="label now"><i />Current</span><h3 data-node="gr" data-accent="#7dffc4">Platform Engineer</h3><p className="org">JulleyOnline.in</p></div>
               <p className="meta">Hyderabad, India<br />Aug 2026 – Present</p>
             </div>
             <ol className="job-list">{JULLEY.map(([k, v], i) => <li key={k}><span className="label">{String(i + 1).padStart(2, '0')} / {k}</span><p>{v}</p></li>)}</ol>
             <ul className="job-stack" aria-label="Stack">{JULLEY_STACK.map((t) => <li key={t}>{t}</li>)}</ul>
           </article>
-          <div className="job-minor">{INTERNSHIPS.map((j) => (
+          <div className="job-minor" data-node="gl" data-accent="#8982ff">{INTERNSHIPS.map((j) => (
             <article key={j.org} className="glass" data-reveal><span className="label">{j.meta}</span><h3>{j.role}</h3><p className="org">{j.org}</p>
               <ul>{j.points.map((p) => <li key={p}>{p}</li>)}</ul></article>))}</div>
         </section>
 
         <section id="work" className="work" tabIndex={-1} aria-labelledby="work-title">
-          <header className="sec-head" data-reveal><span className="label">03 · Selected work</span><h2 id="work-title">Built to be<br /><em>useful.</em></h2></header>
+          <header className="sec-head"><span className="label">03 · Selected work</span><h2 id="work-title" data-node="gr" data-accent="#ff7ad9"><span className="hl"><span>Built to be</span></span><span className="hl"><em>useful.</em></span></h2><div className="work-rule" aria-hidden /><p className="work-sub">Four projects, four problems: health data, task flow, personal finance, accessible knowledge.</p></header>
           <div className="projects">{PROJECTS.map((p, i) => (
-            <article key={p.slug} className={`project p-${p.slug} ${i < 2 ? 'major' : 'minor'}`} data-reveal aria-labelledby={`p-${p.slug}`}>
+            <article key={p.slug} className={`project p-${p.slug}`} data-project aria-labelledby={`p-${p.slug}`}>
               <span className="pnum" aria-hidden>0{i + 1}</span>
               {/* Mouse shortcut only; the text link below is the single accessible control. */}
-              <a href={`#/work/${p.slug}`} className="glass holo pcard" tabIndex={-1} aria-hidden {...tilt} onClick={caseLink(p.slug)}><ProjectVisual slug={p.slug} /></a>
+              <a href={`#/work/${p.slug}`} className="glass holo pcard" tabIndex={-1} aria-hidden data-node={SIDE[p.slug]} data-accent={ACCENT[p.slug]} {...tilt} onClick={caseLink(p.slug)}><ProjectVisual slug={p.slug} /></a>
               <div className="pinfo">
                 {p.marker && <span className="label marker">{p.marker}</span>}
                 <h3 id={`p-${p.slug}`}>{p.name}</h3><p className="kind">{p.kind}</p><p>{p.desc}</p>
@@ -203,7 +209,7 @@ export default function App() {
         <section id="research" className="research" tabIndex={-1} aria-labelledby="research-title">
           <header className="sec-head" data-reveal><span className="label">04 · Research & recognition</span><h2 id="research-title">Research, recognition<br />& publications.</h2></header>
           <div className="pub-row">
-            <article className="glass holo paper" data-reveal>
+            <article className="glass holo paper" data-reveal data-node="gl" data-accent="#5ef2ff">
               <span className="label pub-label">Published IEEE research · 2026</span>
               <h3>{PUBLICATION.title}</h3>
               <p className="muted">{PUBLICATION.authors}</p>
@@ -215,18 +221,18 @@ export default function App() {
               <dl>{PUBLICATION.record.map(([k, v]) => <div key={k}><dt className="label">{k}</dt><dd>{v}</dd></div>)}</dl>
             </aside>
           </div>
-          <div className="honors" data-reveal="stagger">{HONORS.map(([k, t, d]) => (
+          <div className="honors" data-reveal="stagger" data-node="gr" data-accent="#ffe86b">{HONORS.map(([k, t, d]) => (
             <div key={t}><span className="label">{k}</span><h3>{t}</h3><p>{d}</p></div>))}</div>
         </section>
 
         <section id="toolkit" className="toolkit" tabIndex={-1} aria-labelledby="toolkit-title">
-          <header className="sec-head" data-reveal><span className="label">05 · Toolkit</span><h2 id="toolkit-title">The working<br />stack.</h2></header>
+          <header className="sec-head" data-reveal><span className="label">05 · Toolkit</span><h2 id="toolkit-title" data-node="gl" data-accent="#7dffc4">The working<br />stack.</h2></header>
           <ol className="tk" data-reveal="stagger">{TOOLKIT.map(([k, v], i) => <li key={k}><span>0{i + 1}</span><strong>{k}</strong><em>{v}</em></li>)}</ol>
         </section>
 
         <section id="contact" className="contact" tabIndex={-1} aria-labelledby="contact-title">
-          <div data-reveal><h2 id="contact-title">LET'S BUILD<br />SOMETHING<br /><em>MEANINGFUL.</em></h2><p className="contact-sub">Interested in software engineering, platform systems, full-stack development, and applied AI. Let's connect.</p></div>
-          <div className="contact-row" data-reveal="stagger">
+          <div data-reveal><h2 id="contact-title" data-node="gr" data-accent="#8982ff">LET'S BUILD<br />SOMETHING<br /><em>MEANINGFUL.</em></h2><p className="contact-sub">Interested in software engineering, platform systems, full-stack development, and applied AI. Let's connect.</p></div>
+          <div className="contact-row" data-reveal="stagger" data-node="gl" data-accent="#ff7ad9">
             <a className="btn primary" href={LINKS.email}>{LINKS.emailLabel}</a>
             <a href={LINKS.github} target="_blank" rel="noreferrer">GitHub ↗<span className="sr-only"> (opens in a new tab)</span></a>
             <a href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗<span className="sr-only"> (opens in a new tab)</span></a>

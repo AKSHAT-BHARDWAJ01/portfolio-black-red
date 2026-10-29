@@ -1,4 +1,8 @@
-# Akshat Bhardwaj — Portfolio
+# Akshat Bhardwaj — Portfolio (line-animation experiment)
+
+> Experimental clone of the preserved portfolio (`portfolio-v1-preserved`, `d5ce736`). Branch: `line-animation-experiment`. It has no remote and is not for deployment. The original lives untouched in `~/portfolio`.
+>
+> What's new here: an SVG "nerve line" (`src/components/NerveLine.tsx`) that draws down the page from Experience to Contact, lighting nodes at milestones, plus a rebuilt Projects section (`initProjects` in `src/lib/motion.ts`). Experimental screenshots are in `screens/` (git-ignored).
 
 React 19 + TypeScript + Vite 8 + Tailwind 4, with GSAP (ScrollTrigger, Physics2D) and Lenis for the gravity-based section transitions.
 

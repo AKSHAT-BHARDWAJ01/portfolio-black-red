@@ -1,10 +1,13 @@
-# Akshat Bhardwaj — Portfolio (line-animation experiment)
+# Akshat Bhardwaj — Portfolio (Black × Crimson organic line)
 
-> Experimental clone of the preserved portfolio (`portfolio-v1-preserved`, `d5ce736`). Branch: `line-animation-experiment`. It has no remote and is not for deployment. The original lives untouched in `~/portfolio`.
+> Working copy of `~/portfolio-line-experiment` (baseline `2f5e670`, left untouched). Branch: `black-red-portfolio-dev`. No remote; not for deployment. The original portfolio lives untouched in `~/portfolio`.
 >
-> What's new here: an SVG "nerve line" (`src/components/NerveLine.tsx`) that draws down the page from Experience to Contact, lighting nodes at milestones, plus a rebuilt Projects section (`initProjects` in `src/lib/motion.ts`). Experimental screenshots are in `screens/` (git-ignored).
+> - **Identity:** black and crimson tokens on `:root` in `src/index.css`.
+> - **Line:** one crimson line (`src/components/NerveLine.tsx`) runs from the full stop of the hero headline to the contact links, through every section.
+> - **Transitions:** the hero leaves with a scrubbed, reversible exit (`initHeroExit` in `src/lib/motion.ts`). The gravity transitions are removed.
+> - **Screenshots:** in `screens/black-red/` (git-ignored). `screens/{1440,1024,768,390}/` are the baseline captures.
 
-React 19 + TypeScript + Vite 8 + Tailwind 4, with GSAP (ScrollTrigger, Physics2D) and Lenis for the gravity-based section transitions.
+React 19 + TypeScript + Vite 8 + Tailwind 4, with GSAP (ScrollTrigger) and Lenis for scroll-driven motion.
 
 ## Run locally
 

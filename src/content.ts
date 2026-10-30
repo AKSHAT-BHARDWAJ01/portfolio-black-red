@@ -9,7 +9,7 @@ export const LINKS = {
   doi: 'https://doi.org/10.1109/ICoECIT68303.2026.11497893',
 }
 
-export const SECTIONS = ['about', 'experience', 'work', 'research', 'toolkit', 'contact'] as const
+export const SECTIONS = ['about', 'experience', 'work', 'process', 'research', 'toolkit', 'contact'] as const
 
 export type Project = {
   slug: string
@@ -61,11 +61,12 @@ export const CAPABILITIES = [
   ['03', 'AI & Research', 'RAG systems, NLP, Hugging Face, model fine-tuning, local inference, applied healthcare AI.'],
 ]
 
-// Each principle restates a resume bullet; the evidence line is the bullet itself.
-export const PRINCIPLES = [
-  ['Migrate without stopping.', 'Firebase → PostgreSQL-backed REST APIs across 30+ files while maintaining production uptime.'],
-  ['Verify before it ships.', 'Functional, regression, lint, type-check and real-device validation on production hotfixes.'],
-  ['Translate design into product.', 'Figma designs turned into React Native components: Insights drill-downs, biometric authentication, document previews.'],
+// The four stages of how I work. Each one restates a resume bullet; the evidence line is the bullet itself.
+export const PROCESS = [
+  ['Understand', 'Read the system before changing it.', 'Traced a branch divergence of 126+ commits across nine core screens before reconciling it, with no data or feature loss.'],
+  ['Design', 'Translate intent into components.', 'Turned Figma designs into React Native components for task management, workspace hierarchies, Insights drill-downs and document previews.'],
+  ['Build', 'Change it while it keeps running.', 'Moved a production app from Firebase to PostgreSQL-backed REST APIs across 30+ files while maintaining production uptime.'],
+  ['Validate', 'Prove it before it ships.', 'Functional, regression, lint, type-check and real-device validation on production hotfixes, from an isolated Git worktree.'],
 ]
 
 export const JULLEY = [

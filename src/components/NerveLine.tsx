@@ -141,7 +141,8 @@ export function NerveLine() {
       })
       const nodes = s.querySelectorAll<SVGGElement>('.node')
       nodes.forEach((n, i) => {
-        const set = (st: ScrollTrigger) => n.classList.toggle('on', i === 0 || st.progress > 0)
+        // The anchor element learns it too (.node-on), so content can light up as the line reaches it.
+        const set = (st: ScrollTrigger) => { const on = i === 0 || st.progress > 0; n.classList.toggle('on', on); els[i].classList.toggle('node-on', on) }
         // The final node sits where the page can't scroll far enough to reach mid-viewport, so it lights near the very bottom instead.
         const end = i === nodes.length - 1
         ScrollTrigger.create({
@@ -154,7 +155,7 @@ export function NerveLine() {
         gsap.fromTo(tw, { strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: 'none', autoRound: false, scrollTrigger: { trigger: root, start: `top+=${y} 62%`, end: `top+=${y + 90} 62%`, scrub: 0.5 } })
       })
     })
-    return () => mm.revert()
+    return () => { mm.revert(); root.querySelectorAll('.node-on').forEach((el) => el.classList.remove('node-on')) }
   }, [geo])
 
   const n = geo?.nodes.length ?? 0

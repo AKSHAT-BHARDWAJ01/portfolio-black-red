@@ -182,13 +182,37 @@ main { position: relative; }
 
 /* ---- Research ---- */
 .research { padding: 120px var(--gutter) 80px; }
-.pub-row { display: grid; grid-template-columns: minmax(0, 820px) minmax(260px, 1fr); gap: 48px; align-items: stretch; }
-.paper { padding: clamp(24px, 4vw, 48px); display: grid; gap: 14px; align-content: start; }
-.paper h3 { font-size: clamp(24px, 3vw, 40px); font-weight: 700; letter-spacing: -.02em; line-height: 1.15; }
-.pub-label { color: var(--red-hi); }
-.doi { font: 13px 'JetBrains Mono'; color: var(--red-soft); border-bottom: 1px solid rgba(229,57,69,.5); justify-self: start; padding-bottom: 2px; overflow-wrap: anywhere; }
-.record { padding: 24px; display: grid; gap: 16px; align-content: start; }
-.record dl div, .cs-facts dl div { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid var(--line); padding-top: 10px; margin-top: 10px; font-size: 14px; }
+/* Featured publication: a dark editorial card with an illuminated border and a restrained crimson ambience.
+   It brightens when the line reaches it (.node-on, set by NerveLine) and on hover. */
+.pub-wrap { position: relative; }
+.pub-mark { justify-self: end; align-self: end; margin-top: 12px; font-size: clamp(56px, 7vw, 108px); font-weight: 700; line-height: .8; letter-spacing: -.04em; color: transparent; -webkit-text-stroke: 1px rgba(229,57,69,.4); pointer-events: none; }
+.paper { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); border-radius: 20px;
+  background: radial-gradient(110% 90% at 100% 0%, rgba(229,57,69,.09), transparent 55%), linear-gradient(180deg, #121014, #0c0d10);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 40px 100px -56px rgba(229,57,69,.4); transition: translate var(--t) var(--ease), box-shadow var(--t); }
+.paper::before { content: ''; position: absolute; inset: -32px; z-index: -1; border-radius: 52px; background: radial-gradient(48% 55% at 72% 45%, rgba(229,57,69,.2), transparent 72%); filter: blur(28px); opacity: .3; transition: opacity 1s var(--ease); pointer-events: none; }
+.paper::after { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: linear-gradient(115deg, rgba(255,255,255,.07), rgba(229,57,69,.22) 55%, rgba(255,75,85,.85));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: .5; transition: opacity 1s var(--ease); }
+.paper.node-on::before, .paper.node-on::after { opacity: 1; }
+.paper:hover { translate: 0 -4px; box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 50px 120px -56px rgba(229,57,69,.6); }
+.paper:hover::after { opacity: 1; }
+.paper-main { padding: clamp(26px, 4vw, 56px); display: grid; gap: 20px; align-content: start; }
+.paper-top { display: flex; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; }
+.pub-label { display: inline-flex; align-items: center; gap: 10px; color: var(--red-hi); }
+.pub-label i { width: 7px; height: 7px; border-radius: 50%; background: var(--red-hi); box-shadow: 0 0 10px rgba(255,75,85,.8); }
+.paper-title { font-size: clamp(30px, 3.6vw, 54px); font-weight: 700; letter-spacing: -.03em; line-height: 1.06; max-width: 21ch; }
+/* A short crimson rule under the title draws in when the line arrives. */
+.paper-title::after { content: ''; display: block; width: 72px; height: 2px; margin-top: 22px; background: linear-gradient(90deg, var(--red), transparent); transform: scaleX(0); transform-origin: 0 50%; transition: transform 1.2s .2s var(--ease); }
+.paper.node-on .paper-title::after { transform: scaleX(1); }
+.paper-authors { color: var(--tx2); font-size: 15px; line-height: 1.55; } .paper-authors strong { color: var(--tx); font-weight: 500; }
+.paper-venue { font: italic 21px/1.4 'Instrument Serif', serif; color: var(--tx); max-width: 46ch; }
+.paper-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 6px; }
+.paper-related { padding: 8px 0 2px; color: var(--tx2); border-bottom: 1px solid var(--line-control); transition: color var(--t), border-color var(--t); }
+.paper-related:hover { color: var(--red-hi); border-color: var(--red-hi); }
+.paper-record { display: grid; grid-template-rows: auto auto auto 1fr; gap: 14px; padding: clamp(26px, 2.6vw, 34px); border-left: 1px solid var(--red-line); border-radius: 0 20px 20px 0; background: rgba(8,9,11,.4); }
+.paper-record dl div, .cs-facts dl div { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid var(--line); padding-top: 10px; margin-top: 10px; font-size: 14px; }
+.doi { font: 12px 'JetBrains Mono'; color: var(--red-soft); border-bottom: 1px solid rgba(229,57,69,.5); justify-self: start; padding: 8px 0 2px; overflow-wrap: anywhere; }
+.paper-record .doi { display: grid; gap: 4px; } .paper-record .doi .label { color: var(--tx2); }
 .honors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-top: 72px; }
 .honors > div { border-top: 1px solid var(--line); padding-top: 18px; display: grid; gap: 8px; align-content: start; }
 .honors h3 { font-size: 18px; font-weight: 700; line-height: 1.3; } .honors p { color: var(--tx2); font-size: 14px; line-height: 1.5; }
@@ -229,7 +253,7 @@ main { position: relative; }
   .avail { display: none; } .nav { width: min(920px, calc(100% - 64px)); }
   .art-2 { top: 72vh; }
   .projects .project { gap: 40px; }
-  .pub-row { grid-template-columns: 1fr; }
+  .paper { grid-template-columns: 1fr; } .paper-record { border-left: 0; border-top: 1px solid var(--red-line); border-radius: 0 0 20px 20px; }
   .cs-visual { grid-template-columns: 1fr; }
 }
 /* ---- Tablet (768–1023) ---- */
@@ -282,4 +306,5 @@ main { position: relative; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before { animation: none !important; transition: none !important; }
   .holo:not(.is-static):hover, .project:focus-within .holo { transform: none; }
+  .paper::before, .paper::after { opacity: 1; } .paper-title::after { transform: none; } .paper:hover { translate: none; }
 }

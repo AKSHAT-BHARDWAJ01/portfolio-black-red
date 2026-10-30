@@ -201,21 +201,29 @@ export default function App() {
 
         <section id="research" className="research" tabIndex={-1} aria-labelledby="research-title">
           <header className="sec-head" data-reveal><span className="label sec">05 · Research & recognition</span><h2 id="research-title" data-node="gr" data-major>Research, recognition<br />& publications.</h2></header>
-          <div className="pub-row">
-            <article className="glass holo is-static paper" data-reveal data-node="er" data-dx="24" data-f=".2">
-              <span className="label pub-label">Published IEEE research · 2026</span>
-              <h3>{PUBLICATION.title}</h3>
-              <p className="muted">{PUBLICATION.authors}</p>
-              <p>{PUBLICATION.venue}</p>
-              <a className="doi" href={LINKS.doi} target="_blank" rel="noreferrer">DOI {PUBLICATION.doi} ↗<span className="sr-only"> (opens in a new tab)</span></a>
+          {/* Featured publication: the line plugs into its right edge, which lights the card when reached. */}
+          <div className="pub-wrap">
+            <article className="paper" data-reveal data-node="er" data-node-y="top" data-f=".35" aria-labelledby="paper-title">
+              <div className="paper-main">
+                <div className="paper-top"><span className="label pub-label"><i />Featured publication</span><span className="label">IEEE · ICoECIT 2026</span></div>
+                <h3 id="paper-title" className="paper-title">{PUBLICATION.title}</h3>
+                <p className="paper-authors"><strong>A. Bhardwaj</strong>{PUBLICATION.authors.replace(/^A\. Bhardwaj/, '')}</p>
+                <p className="paper-venue">{PUBLICATION.venue}</p>
+                <div className="paper-actions">
+                  <a className="btn primary" href={LINKS.doi} target="_blank" rel="noreferrer">Read the paper ↗<span className="sr-only"> (opens in a new tab)</span></a>
+                  <a className="paper-related" href="#/work/healthcare-ai" onClick={caseLink('healthcare-ai')}>Related project: Healthcare.AI →</a>
+                </div>
+              </div>
+              <aside className="paper-record" aria-label="Publication record">
+                <span className="label">Record</span>
+                <dl>{PUBLICATION.record.map(([k, v]) => <div key={k}><dt className="label">{k}</dt><dd>{v}</dd></div>)}</dl>
+                <a className="doi" href={LINKS.doi} target="_blank" rel="noreferrer"><span className="label">DOI</span><span>{PUBLICATION.doi}{'\u00a0'}↗</span><span className="sr-only"> (opens in a new tab)</span></a>
+                <span className="pub-mark" aria-hidden>IEEE</span>
+              </aside>
             </article>
-            <aside className="glass record" data-reveal aria-label="Publication record">
-              <span className="label">Record</span>
-              <dl>{PUBLICATION.record.map(([k, v]) => <div key={k}><dt className="label">{k}</dt><dd>{v}</dd></div>)}</dl>
-            </aside>
           </div>
           <div className="honors" data-reveal="stagger">{HONORS.map(([k, t, d], i) => (
-            <div key={t} data-node={i === 1 ? 'er' : undefined} data-dx="24" data-swing="4"><span className="label">{k}</span><h3>{t}</h3><p>{d}</p></div>))}</div>
+            <div key={t} data-node={i === 1 ? 'er' : undefined} data-dx="24" data-f=".62"><span className="label">{k}</span><h3>{t}</h3><p>{d}</p></div>))}</div>
         </section>
 
         <section id="toolkit" className="toolkit" tabIndex={-1} aria-labelledby="toolkit-title">

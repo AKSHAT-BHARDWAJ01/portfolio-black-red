@@ -7,6 +7,9 @@ export const LINKS = {
   github: 'https://github.com/AKSHAT-BHARDWAJ01',
   linkedin: 'https://www.linkedin.com/in/akshat-bhardwaj-84bb52271/',
   doi: 'https://doi.org/10.1109/ICoECIT68303.2026.11497893',
+  // Two-page public resume (no phone number); source in resume-src/resume.html.
+  resume: `${import.meta.env.BASE_URL}resume/Akshat_Bhardwaj_Resume.pdf`,
+  resumeFile: 'Akshat_Bhardwaj_Resume.pdf',
 }
 
 export const SECTIONS = ['about', 'experience', 'work', 'process', 'research', 'toolkit', 'contact'] as const

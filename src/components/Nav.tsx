@@ -46,6 +46,7 @@ export function Nav({ go, lock }: Props) {
             <a key={s} href={`#${s}`} onClick={nav(s)} aria-current={active === s ? 'true' : undefined}>{s}</a>
           ))}
         </nav>
+        <a className="nav-cv" href={LINKS.resume} download={LINKS.resumeFile}>Resume <span className="cv-ic" aria-hidden>↓</span><span className="sr-only"> download (PDF)</span></a>
         <span className="avail"><i />Hyderabad · Open to connect</span>
         <button ref={menuBtn} type="button" className="icon-btn menu-btn" aria-label="Open menu" aria-expanded={open} aria-controls="site-menu"
           onClick={() => { setOpen(true); lock(true) }}>
@@ -78,6 +79,7 @@ export function Nav({ go, lock }: Props) {
               <a href={LINKS.email}>Email</a>
               <a href={LINKS.github} target="_blank" rel="noreferrer">GitHub ↗</a>
               <a href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
+              <a href={LINKS.resume} download={LINKS.resumeFile}>Resume ↓<span className="sr-only"> download (PDF)</span></a>
             </div>
           </div>
         </div>

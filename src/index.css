@@ -47,8 +47,14 @@ section:focus, main:focus, h1:focus { outline: none; }
 .nav-links { display: flex; gap: 22px; text-transform: capitalize; color: var(--tx2); }
 .nav-links a { position: relative; transition: color var(--t); } .nav-links a:hover, .nav-links a[aria-current] { color: var(--tx); }
 .nav-links a[aria-current]::before { content: ''; position: absolute; left: -10px; top: 50%; width: 5px; height: 5px; margin-top: -2.5px; border-radius: 50%; background: var(--red); }
-.avail { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--tx2); }
+.avail { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--tx2); white-space: nowrap; }
+@media (min-width: 1280px) { .nav { width: min(1040px, calc(100% - 24px)); } }
 .avail i { width: 7px; height: 7px; border-radius: 50%; background: var(--red-hi); box-shadow: 0 0 8px rgba(255,75,85,.7); }
+/* Resume download: a quiet crimson-outlined pill; the arrow dips on hover. */
+.nav-cv { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border: 1px solid rgba(229,57,69,.45); border-radius: 999px; font-size: 13px; white-space: nowrap; transition: background var(--t), border-color var(--t); }
+.nav-cv:hover { background: rgba(229,57,69,.12); border-color: var(--red-hi); } .nav-cv:active { background: rgba(229,57,69,.2); }
+.cv-ic { display: inline-block; color: var(--red-hi); transition: transform .3s var(--ease); }
+a:hover > .cv-ic, a:focus-visible > .cv-ic { transform: translateY(2px); }
 .icon-btn { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--line-control); border-radius: 8px; color: var(--tx); transition: background var(--t); }
 .icon-btn:hover { background: rgba(255,255,255,.06); }
 .menu-btn { display: none; }
@@ -73,8 +79,9 @@ section:focus, main:focus, h1:focus { outline: none; }
 .hero-foot p { max-width: 440px; color: var(--tx2); line-height: 1.55; }
 .ctas, .contact-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
 .btn { padding: 12px 20px; border: 1px solid var(--line-control); border-radius: 8px; text-align: center; transition: background var(--t), color var(--t); }
-.btn { transition: background var(--t), color var(--t), border-color var(--t), box-shadow var(--t), transform .2s var(--ease); }
-.btn:hover { background: rgba(229,57,69,.08); border-color: rgba(229,57,69,.6); } .btn:active { transform: translateY(1px); background: rgba(229,57,69,.14); }
+/* The press uses `translate`, not `transform`: GSAP reveals own `transform`, and a CSS transition on it corrupts their end values. */
+.btn { transition: background var(--t), color var(--t), border-color var(--t), box-shadow var(--t), translate .2s var(--ease); }
+.btn:hover { background: rgba(229,57,69,.08); border-color: rgba(229,57,69,.6); } .btn:active { translate: 0 1px; background: rgba(229,57,69,.14); }
 .btn.primary { background: var(--red-btn); color: #fff; border-color: var(--red-btn); }
 .btn.primary:hover { background: var(--red-btn); border-color: var(--red-hi); box-shadow: 0 12px 32px -12px rgba(229,57,69,.75); } .btn.primary:active { background: var(--red-lo); }
 .hero-art { position: absolute; inset: 0; pointer-events: none; z-index: -1; }
@@ -226,7 +233,9 @@ main { position: relative; }
 .contact { padding: 160px var(--gutter) 32px; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: space-between; gap: 60px; background: radial-gradient(55% 45% at 75% 40%, rgba(229,57,69,.07), transparent); }
 .contact h2 { font-size: clamp(48px, 10vw, 170px); line-height: .88; letter-spacing: -.045em; font-weight: 700; }
 .contact-sub { color: var(--tx2); max-width: 520px; margin-top: 24px; line-height: 1.55; }
-.contact-row > a:not(.btn) { padding: 12px 6px; border-bottom: 1px solid var(--line-control); }
+.contact-row > a:not(.btn), .cv-pair a { padding: 12px 6px; border-bottom: 1px solid var(--line-control); transition: color var(--t), border-color var(--t); }
+.cv-pair { display: inline-flex; gap: 12px; } .cv-pair .cv-view { color: var(--tx2); }
+.cv-pair a:hover { color: var(--tx); border-color: var(--red-hi); }
 .foot { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 20px; font-size: 13px; color: var(--tx2); }
 .foot button { padding: 6px 0; } .foot button:hover { color: var(--tx); }
 
@@ -247,7 +256,7 @@ main { position: relative; }
 .cs-next strong { font-size: clamp(28px, 3vw, 40px); letter-spacing: -.03em; transition: color var(--t); } .cs-next:hover strong { color: var(--red-hi); }
 
 /* ---- Below wide desktop: the floating About tags have no free space and would cover copy ---- */
-@media (max-width: 1279px) { .t1, .t2 { display: none; } }
+@media (max-width: 1279px) { .t1, .t2 { display: none; } .nav .avail { display: none; } }
 /* ---- Laptop & tablet (≤1023) ---- */
 @media (max-width: 1023px) {
   .avail { display: none; } .nav { width: min(920px, calc(100% - 64px)); }
@@ -262,7 +271,7 @@ main { position: relative; }
   .about-copy { max-width: 600px; }
   .projects .project { grid-template-columns: 1fr; padding: 0; } .projects .project .pcard { order: 0; aspect-ratio: 16/10; }
   .projects .project .pnum { left: -10px; right: auto; }
-  .nav-links { gap: 18px; }
+  .nav-links { gap: 18px; } .nav-cv { display: none; } /* no room beside seven links; hero and contact carry it */
   .stages { grid-template-columns: 1fr 1fr; gap: 48px 40px; } .stage:nth-child(n) { margin-top: 0; } .stage:nth-child(even) { margin-top: 56px; }
 }
 /* ---- Mobile (<768) ---- */

@@ -132,6 +132,7 @@ export default function App() {
             <div className="ctas">
               <a className="btn primary" href="#work" onClick={link('#work')}>Explore my work</a>
               <a className="btn" href="#contact" onClick={link('#contact')}>Let's connect</a>
+              <a className="btn cv" href={LINKS.resume} download={LINKS.resumeFile}>Download resume <span className="cv-ic" aria-hidden>↓</span><span className="sr-only"> (PDF, 2 pages)</span></a>
             </div>
           </div>
           <div className="hero-art" aria-hidden>
@@ -235,6 +236,10 @@ export default function App() {
           <div data-reveal><span className="label sec">07 · Contact</span><h2 id="contact-title" data-node="gr" data-major>LET'S BUILD<br />SOMETHING<br /><em>MEANINGFUL.</em></h2><p className="contact-sub">Interested in software engineering, platform systems, full-stack development, and applied AI. Let's connect.</p></div>
           <div className="contact-row" data-reveal="stagger">
             <a className="btn primary" href={LINKS.email}>{LINKS.emailLabel}</a>
+            <span className="cv-pair">
+              <a className="cv" href={LINKS.resume} download={LINKS.resumeFile}>Resume <span className="cv-ic" aria-hidden>↓</span><span className="sr-only"> download (PDF, 2 pages)</span></a>
+              <a className="cv-view" href={LINKS.resume} target="_blank" rel="noreferrer">View<span className="sr-only"> resume (opens in a new tab)</span></a>
+            </span>
             <a href={LINKS.github} target="_blank" rel="noreferrer">GitHub ↗<span className="sr-only"> (opens in a new tab)</span></a>
             <a href={LINKS.linkedin} target="_blank" rel="noreferrer" data-node="er" data-dx="22" data-f=".72">LinkedIn ↗<span className="sr-only"> (opens in a new tab)</span></a>
           </div>

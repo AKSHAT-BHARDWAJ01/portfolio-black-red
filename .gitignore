@@ -24,3 +24,6 @@ npm-debug.log*
 # local Phase 0 baseline captures (reference screenshots/recordings; not committed)
 /baseline/
 /screens/
+
+# original resume as supplied (contains a phone number; kept locally, never committed or served)
+/resume-src/original/

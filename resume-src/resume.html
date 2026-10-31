@@ -1,0 +1,163 @@
+<!doctype html>
+<!--
+  Source for public/resume/Akshat_Bhardwaj_Resume.pdf (US Letter, two pages).
+  Content follows the Oct 2026 two-page resume, with the phone number removed for the public copy.
+  Render with Chromium's print-to-PDF (Letter, margins from @page, backgrounds on, tagged PDF),
+  so text uses embedded TrueType fonts with Unicode mappings and links carry no visible border.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Akshat Bhardwaj – Resume</title>
+<style>
+  @page { size: Letter; margin: 0.42in 0.5in 0.42in; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Arial, Helvetica, sans-serif; font-size: 9.3pt; line-height: 1.27; color: #16171a; }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+
+  header { text-align: center; margin-bottom: 6pt; }
+  h1 { font-size: 20pt; letter-spacing: .06em; font-weight: 700; line-height: 1.1; }
+  .contact { margin-top: 4pt; color: #33353b; }
+  .contact .sep { color: #9f303b; padding: 0 5pt; } .contact a { white-space: nowrap; }
+
+  h2 { font-size: 10.5pt; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #16171a;
+       border-bottom: 0.9pt solid #9f303b; padding-bottom: 2pt; margin: 7pt 0 3.5pt; break-after: avoid; }
+  section > p { text-align: left; }
+
+  .entry { margin-bottom: 5pt; }
+  .row, .bul li { break-inside: avoid; } .row { break-after: avoid; }
+  .row { display: flex; justify-content: space-between; gap: 12pt; }
+  .row .r { text-align: right; white-space: nowrap; }
+  .t { font-weight: 700; }
+  .sub { font-style: italic; color: #33353b; }
+  .proj-link { color: #9f303b; font-weight: 700; }
+
+  .bul li { display: grid; grid-template-columns: 9pt 1fr; margin-top: 2pt; }
+  .entry .bul { margin-left: 8pt; margin-top: 2pt; }
+  .bul b { font-weight: 700; }
+  .doi { color: #9f303b; }
+</style>
+</head>
+<body>
+<header>
+  <h1>AKSHAT BHARDWAJ</h1>
+  <p class="contact">Hyderabad, Telangana, India<span class="sep">|</span><a href="mailto:akshatbhardwaj0801@gmail.com">akshatbhardwaj0801@gmail.com</a><br><a href="https://www.linkedin.com/in/akshat-bhardwaj-84bb52271/">linkedin.com/in/akshat-bhardwaj-84bb52271</a><span class="sep">|</span><a href="https://github.com/AKSHAT-BHARDWAJ01">github.com/AKSHAT-BHARDWAJ01</a></p>
+</header>
+
+<section>
+  <h2>Professional Summary</h2>
+  <p>Platform Engineer experienced in mobile backend migration, release engineering (CI/CD, EAS, OTA updates), and cross-platform QA on a React Native/Expo application, with additional research experience in applied AI/ML (RAG, LLM fine-tuning, generative AI). Skilled in Python, FastAPI, PostgreSQL, and full-stack development, with a published IEEE research paper in healthcare AI.</p>
+</section>
+
+<section>
+  <h2>Education</h2>
+  <div class="entry">
+    <div class="row"><span class="t">Vidya Jyothi Institute Of Technology</span><span class="r">Hyderabad, Telangana</span></div>
+    <div class="row sub"><span>Bachelor of Technology in Computer Science; GPA: 8.25</span><span class="r">Oct. 2022 – Present</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Experience</h2>
+  <div class="entry">
+    <div class="row"><span class="t">JulleyOnline.in</span><span class="r">Hyderabad, Telangana</span></div>
+    <div class="row sub"><span>Platform Engineer</span><span class="r">Aug 2026 – Present</span></div>
+    <ul class="bul">
+      <li><span>•</span><span><b>Backend Migration:</b> Contributed to migrating a production React Native/Expo mobile application from Firebase to PostgreSQL-backed REST APIs across 30+ files, maintaining production uptime throughout the transition.</span></li>
+      <li><span>•</span><span><b>Version Control Recovery:</b> Reconciled a 126+ commit divergence across 9 core app screens to restore a clean branch baseline with zero data or feature loss.</span></li>
+      <li><span>•</span><span><b>QA, Hotfix &amp; Git Workflow:</b> Diagnosed and fixed a touch-interception bug in a shared dropdown component and a UX gating issue in task creation; shipped the fix through an isolated git worktree, verifying diff scope (+39/-2 across 2 files) and running functional and regression testing – lint, type-checks, and real-device validation across iOS/Android – before merge.</span></li>
+      <li><span>•</span><span><b>Release Engineering:</b> Audited the mobile CI/CD setup (GitHub Actions, EAS profiles, build channels, runtime versioning) and implemented a Firebase Remote Config-based force-update mechanism with version comparison and fail-open error handling.</span></li>
+      <li><span>•</span><span><b>Mobile Feature Development:</b> Translated Figma specifications into React Native components (task management, workspace hierarchies, Insights drill-downs, biometric authentication, multi-format document preview); produced a severity-ranked QA bug report and established real-device verification as the release standard.</span></li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="row"><span class="t">Swecha Telangana</span><span class="r">IIIT Hyderabad, India (Hybrid)</span></div>
+    <div class="row sub"><span>AI Research Intern</span><span class="r">May 2025 – June 2025</span></div>
+    <ul class="bul">
+      <li><span>•</span><span><b>AI Assistant Development:</b> Built an open-source AI assistant using Hugging Face, handling 50+ complex query types through optimized prompt engineering.</span></li>
+      <li><span>•</span><span><b>RAG System:</b> Designed a Retrieval-Augmented Generation (RAG) system with custom knowledge bases, reducing information retrieval time by 40%.</span></li>
+      <li><span>•</span><span><b>LLM Inference:</b> Deployed local LLM inference using Ollama and PocketPal, enabling offline execution of 7+ language models.</span></li>
+      <li><span>•</span><span><b>Model Fine-tuning:</b> Fine-tuned transformer models for specific NLP tasks, improving accuracy by 15%.</span></li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="row"><span class="t">Agnirva.com Space Community</span><span class="r">Hyderabad, India (Remote)</span></div>
+    <div class="row sub"><span>AI Research Intern</span><span class="r">July 2025</span></div>
+    <ul class="bul">
+      <li><span>•</span><span><b>LLM-Based AI Assistants:</b> Built LLM-based AI assistants using Hugging Face and Generative AI techniques for design, audio, and video generation.</span></li>
+      <li><span>•</span><span><b>AI Use-Case Analysis:</b> Analyzed real-world AI applications in climate research and satellite data processing, developing insights into AI adoption in industry and research.</span></li>
+      <li><span>•</span><span><b>Generative AI &amp; Prompt Engineering:</b> Created AI-assisted creative outputs and gained practical experience with generative AI tools and prompt engineering.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Projects</h2>
+  <div class="entry">
+    <div class="row"><span class="t">Healthcare.ai – AI Health Prediction Platform</span><a class="r proj-link" href="https://github.com/AKSHAT-BHARDWAJ01/HealthCare.Ai.git">GitHub</a></div>
+    <div class="row sub"><span><b>Tech Stack:</b> React, FastAPI, Supabase, PyTorch, Hugging Face, JWT</span><span class="r">2025</span></div>
+    <ul class="bul">
+      <li><span>•</span><span><b>AI Health Assistant:</b> Analyzes symptoms and medical text to provide preliminary health insights using NLP models.</span></li>
+      <li><span>•</span><span><b>Smart Medical Report Management:</b> Enables users to securely upload, store, analyze, and summarize medical reports; converts clinical data into plain-language summaries and supports sharing with doctors via QR codes.</span></li>
+      <li><span>•</span><span><b>Unified Patient Dashboard &amp; Timeline:</b> Maintains a complete digital health profile (reports, diagnoses, medications, AI observations), helping patients and doctors track health progress over time.</span></li>
+      <li><span>•</span><span><b>Caretaker &amp; Emergency Management:</b> Integrated caregiver dashboards, emergency contacts, health alerts, and secure report sharing with healthcare providers.</span></li>
+      <li><span>•</span><span><b>Research Publication:</b> Core system published at IEEE ICoECIT 2026 (see Achievements and Publications).</span></li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="row"><span class="t">TaskFlow – Full-Stack Task Management Platform</span><a class="r proj-link" href="https://github.com/AKSHAT-BHARDWAJ01/task-management-app.git">GitHub</a></div>
+    <div class="row sub"><span><b>Tech Stack:</b> React, FastAPI, Supabase, PostgreSQL, JWT, Docker, Vercel</span><span class="r">2026</span></div>
+    <ul class="bul">
+      <li><span>•</span><span><b>User Authentication &amp; Security:</b> Implemented JWT-based authentication with bcrypt password hashing, secure session management, and role-based access control.</span></li>
+      <li><span>•</span><span><b>Task Management System:</b> Designed a complete CRUD application enabling users to create, update, track, and delete tasks with real-time status updates and priority-based filtering.</span></li>
+      <li><span>•</span><span><b>Analytics Dashboard:</b> Engineered an interactive analytics module with real-time data visualization, including completion-rate charts and status distribution graphs.</span></li>
+      <li><span>•</span><span><b>Smart Search &amp; Filters:</b> Created an advanced filtering system for searching tasks by title, description, category, status, and priority.</span></li>
+      <li><span>•</span><span><b>Full-Stack Deployment &amp; Testing:</b> Deployed on Vercel with serverless functions and a Supabase PostgreSQL database; maintained automated test coverage via pytest and Vitest, with CI/CD through GitHub Actions.</span></li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="row"><span class="t">Burry AI – Personal Finance Advisor</span><a class="r proj-link" href="https://github.com/AKSHAT-BHARDWAJ01/BurryAI.git">GitHub</a></div>
+    <div class="row sub"><span><b>Tech Stack:</b> React, FastAPI, PostgreSQL, Scikit-Learn, Pandas, NumPy</span><span class="r">2026</span></div>
+    <ul class="bul">
+      <li><span>•</span><span><b>AI Advisor:</b> Developed a personalized AI guidance system that analyzes user spending trends and financial goals to deliver tailored recommendations.</span></li>
+      <li><span>•</span><span><b>Data Analytics Dashboard:</b> Built an interactive finance platform tracking income and expenses with real-time data visualization.</span></li>
+      <li><span>•</span><span><b>Cost Optimization Engine:</b> Designed a spending-analysis feature that identifies avoidable expenses and recommends <span style="white-space: nowrap">cost-saving</span> actions.</span></li>
+      <li><span>•</span><span><b>Trend Analysis:</b> Implemented charts showing expense patterns, category breakdowns, and income-vs-spending correlations.</span></li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="row"><span class="t">Webopedia – Accessible Wikipedia Clone</span><a class="r proj-link" href="https://github.com/AKSHAT-BHARDWAJ01/Wikipedia_HackOmania.git">GitHub</a></div>
+    <div class="row sub"><span><b>Tech Stack:</b> React, Wikipedia API, Web Speech API, CSS</span><span class="r">2023</span></div>
+    <ul class="bul">
+      <li><span>•</span><span><b>Search and Content Rendering:</b> Built a dynamic search and content rendering system using the Wikipedia API for real-time articles and images.</span></li>
+      <li><span>•</span><span><b>Assistive Navigation:</b> Added a floating action button for quick access to assistive features, enabling hands-free and visually assisted navigation.</span></li>
+      <li><span>•</span><span><b>Text-to-Speech:</b> Integrated Text-to-Speech (Web Speech API) for audio-based content consumption for visually impaired and elderly users.</span></li>
+      <li><span>•</span><span><b>Team Project:</b> Built with Team Blaze at the Hack-O-Mania Hackathon (2023), focusing on inclusive, accessibility-first web design.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Achievements and Publications</h2>
+  <ul class="bul">
+    <li><span>•</span><span><b>1st Place – Hack-O-Mania Hackathon:</b> Organized by GDSC &amp; DSS, VJIT (November 2023); built a working solution (Webopedia) within a 24-hour hackathon.</span></li>
+    <li><span>•</span><span><b>Paper Presenter – ICCIDSDT 2026:</b> Presented “Healthcare.AI: An Integrated Artificial Intelligence Platform for Proactive Patient Care” at MANUU, Hyderabad (January 2026).</span></li>
+    <li><span>•</span><span><b>Certification – Introduction to Generative AI Studio:</b> Completed via Simplilearn (February 2026).</span></li>
+    <li><span>•</span><span><b>Research Publication – IEEE ICoECIT 2026:</b> A. Bhardwaj, M. M. Ali, M. S. U. Tayyab, M. W. Uddin Taher, and P. K. Yadala, “Healthcare AI: An Integrated AI Platform for Proactive Patient Care and Medical Data Management,” 2026 IEEE International Conference on Emerging Computing and Intelligent Technologies (ICoECIT), Hyderabad, India, 2026, pp. 1–5. DOI: <a class="doi" href="https://doi.org/10.1109/ICoECIT68303.2026.11497893">10.1109/ICoECIT68303.2026.11497893</a>.</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Technical Skills</h2>
+  <ul class="bul">
+    <li><span>•</span><span><b>Languages:</b> Python, JavaScript, TypeScript, SQL, HTML, CSS</span></li>
+    <li><span>•</span><span><b>Mobile &amp; Frontend:</b> React Native, Expo, Expo Router, React.js</span></li>
+    <li><span>•</span><span><b>Backend, Databases &amp; DevOps:</b> FastAPI, PostgreSQL, Firebase, REST APIs, JWT, Docker, Vercel, GitHub Actions (CI/CD), EAS Build/Update</span></li>
+    <li><span>•</span><span><b>AI/ML &amp; Data:</b> Hugging Face, PyTorch, Scikit-Learn, Pandas, NumPy, RAG, LLM Fine-Tuning, Prompt Engineering, NLP, Generative AI, Ollama</span></li>
+    <li><span>•</span><span><b>Testing &amp; Tools:</b> Git, pytest, Vitest, Functional &amp; Regression Testing, Figma (spec translation)</span></li>
+  </ul>
+</section>
+</body>
+</html>

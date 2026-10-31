@@ -150,6 +150,13 @@ a:hover > .cv-ic, a:focus-visible > .cv-ic { transform: translateY(2px); }
 .tags { display: flex; gap: 8px; flex-wrap: wrap; } .tags li { font: 12px 'JetBrains Mono'; padding: 5px 10px; border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent); border-radius: 6px; color: var(--tx2); }
 .plinks { display: flex; gap: 8px 24px; flex-wrap: wrap; margin-top: 22px; font-size: 15px; }
 .plinks a { border-bottom: 1px solid var(--line-control); padding: 8px 0 2px; } .plinks a:hover { border-color: var(--accent); color: var(--accent); }
+/* View source: the GitHub mark sits in crimson; on hover the arrow lifts toward the corner. */
+.plinks .src { display: inline-flex; align-items: center; gap: 7px; }
+.plinks .src .gh { color: var(--red-hi); flex: none; transition: transform .3s var(--ease); }
+.src-ic { display: inline-block; transition: transform .3s var(--ease); }
+.plinks .src:hover, .plinks .src:focus-visible { color: var(--tx); border-color: var(--red-hi); }
+.plinks .src:hover .src-ic, .plinks .src:focus-visible .src-ic { transform: translate(2px, -2px); color: var(--red-hi); }
+.plinks .src:hover .gh { transform: rotate(-8deg); }
 
 /* ---- Nerve line: sits above section backgrounds (all transparent) and beneath every piece of content ---- */
 #hero, .exp, .work, .process, .research, .toolkit, .contact { position: relative; z-index: 10; }

@@ -1,5 +1,5 @@
 // Content (source: Oct 9 two-page resume). Nothing here is invented: projects carry only
-// resume features, outcomes list only resume-stated results, and no repository URLs are given.
+// resume features and outcomes list only resume-stated results.
 
 export const LINKS = {
   email: 'mailto:akshatbhardwaj0801@gmail.com',
@@ -10,6 +10,15 @@ export const LINKS = {
   // Two-page public resume (no phone number); source in resume-src/resume.html.
   resume: `${import.meta.env.BASE_URL}resume/Akshat_Bhardwaj_Resume.pdf`,
   resumeFile: 'Akshat_Bhardwaj_Resume.pdf',
+}
+
+// Project source repositories, by project slug. Each URL is the one linked from the two-page resume
+// and was confirmed public on GitHub (2026-10-31). Leave a slug out to hide its "View source" link.
+export const REPOS: Record<string, string> = {
+  'healthcare-ai': 'https://github.com/AKSHAT-BHARDWAJ01/HealthCare.Ai',
+  taskflow: 'https://github.com/AKSHAT-BHARDWAJ01/task-management-app',
+  'burry-ai': 'https://github.com/AKSHAT-BHARDWAJ01/BurryAI',
+  webopedia: 'https://github.com/AKSHAT-BHARDWAJ01/Wikipedia_HackOmania',
 }
 
 export const SECTIONS = ['about', 'experience', 'work', 'process', 'research', 'toolkit', 'contact'] as const

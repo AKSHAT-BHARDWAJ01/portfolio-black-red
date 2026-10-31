@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { PROJECTS, PUBLICATION } from '../content'
+import { PROJECTS, PUBLICATION, REPOS } from '../content'
 import { useFocusTrap } from '../lib/useFocusTrap'
 import { ProjectVisual } from './ProjectVisual'
 
@@ -37,6 +37,7 @@ export function CaseStudy({ slug, onClose, onOpen }: Props) {
             <div><dt className="label">Kind</dt><dd>{p.kind}</dd></div>
             <div><dt className="label">Stack</dt><dd>{p.tags.join(' · ')}</dd></div>
             <div><dt className="label">Visual</dt><dd>Conceptual illustration — not a product screenshot</dd></div>
+            {REPOS[p.slug] && <div><dt className="label">Source</dt><dd><a className="doi" href={REPOS[p.slug]} target="_blank" rel="noreferrer">{REPOS[p.slug].replace('https://', '')} ↗<span className="sr-only"> (opens in a new tab)</span></a></dd></div>}
             {p.link && <div><dt className="label">Paper</dt><dd><a className="doi" href={p.link.href} target="_blank" rel="noreferrer">DOI {PUBLICATION.doi} ↗</a></dd></div>}
           </dl>
         </aside>

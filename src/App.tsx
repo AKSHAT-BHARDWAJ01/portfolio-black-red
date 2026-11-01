@@ -152,7 +152,7 @@ export default function App() {
             <span className="label sec">01 · About · B.Tech CSE, VJIT Hyderabad · 2022 – present</span>
             <h2 id="about-title">Across the stack,<br />into <em>AI.</em></h2>
           </div>
-          <div className="about-copy" data-reveal data-node="el" data-node-y="top" data-f=".1">
+          <div className="about-copy" data-reveal data-node="el" data-node-y="top" data-f=".1" data-clear=".hero-foot p, .hero-foot .btn, .hero .frag">
             <p>I'm a Computer Science undergraduate who enjoys working across the software stack, from APIs and databases to mobile apps, deployment workflows, and AI-powered experiences.</p>
             <p className="muted" data-node="el" data-dx="-28" data-node-y="bottom" data-swing="0">I've helped migrate a production React Native/Expo app from Firebase to PostgreSQL-backed REST APIs, improved release workflows, and explored RAG, local LLM inference, transformer fine-tuning, and healthcare AI research.</p>
           </div>

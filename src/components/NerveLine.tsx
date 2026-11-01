@@ -13,6 +13,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 //   data-f        where along the leg into this node the line crosses sideways (0–1, default .5), so a
 //                 sweep can be placed in the whitespace between blocks instead of over text
 //   data-bow      vertical bow for a nearly level leg (negative lifts it above the content)
+//   data-clear    a selector for blocks the leg into this node must not cross; if the usual sweep would, the leg
+//                 takes the left gutter lane past them instead
 //   data-major    a section milestone: larger node with a slow breathing ring
 // Elements marked `data-tint` get a panel drawn behind the line, so a tinted section never hides it.
 // The SVG lives in <main> beneath all content (sections are transparent), is absolutely positioned
@@ -39,6 +41,26 @@ const r1 = (n: number) => Math.round(n * 10) / 10
 const bez = (p0: number, p1: number, p2: number, p3: number, t: number) => {
   const u = 1 - t
   return u * u * u * p0 + 3 * u * u * t * p1 + 3 * u * t * t * p2 + t * t * t * p3
+}
+
+type Curve = (t: number) => [number, number]
+
+/** A detour for a leg that would cross a data-clear block: into the left gutter lane above the blocks, straight
+ *  down past them, then across to the node. Null when the leg already misses them (or there is no room). */
+function clearLane(root: HTMLElement, sel: string, a: Node, b: Node, lane: number, ...halves: Curve[]) {
+  const pad = 12
+  const blocks = Array.from(root.querySelectorAll<HTMLElement>(sel)).filter((el) => el.offsetParent !== null).map((el) => offsetBox(el, root)).filter((r) => r.y > a.y)
+  const inside = ([x, y]: [number, number]) => blocks.some((r) => x > r.x - pad && x < r.x + r.w + pad && y > r.y - pad && y < r.y + r.h + pad)
+  const hits = halves.some((half) => Array.from({ length: 41 }, (_, i) => half(i / 40)).some(inside))
+  if (!hits) return null
+  // Only blocks reaching in from the lane's side matter: the line enters the lane above the first one left of `a`
+  // and leaves it below the last one left of whichever node is further right.
+  const y1 = Math.min(...blocks.filter((r) => r.x < a.x).map((r) => r.y)) - 28
+  const y2 = Math.max(...blocks.filter((r) => r.x < Math.max(a.x, b.x)).map((r) => r.y + r.h)) + 28
+  if (!Number.isFinite(y1) || y1 - a.y < 40 || b.y < y2 || (b.x !== lane && b.y - y2 < 40)) return null
+  const c1 = (y1 - a.y) * 0.55, c2 = (b.y - y2) * 0.55
+  const exit = b.x === lane ? `L${b.x} ${b.y}` : `L${lane} ${r1(y2)} C${lane} ${r1(y2 + c2)} ${b.x} ${r1(b.y - c2)} ${b.x} ${b.y}`
+  return `M${a.x} ${a.y} C${a.x} ${r1(a.y + c1)} ${lane} ${r1(y1 - c1)} ${lane} ${r1(y1)} ${exit}`
 }
 
 function measure(root: HTMLElement): Geo {
@@ -78,7 +100,12 @@ function measure(root: HTMLElement): Geo {
     // Tension follows the distance travelled, so wide crossings stay round rather than kinked.
     const k = Math.min(0.85, 0.6 + Math.abs(dx) / Math.max(w, 1) * 0.4)
     const c1y = a.y + k * (ym - a.y), c2x = (a.x + xm) / 2
-    const d = `M${a.x} ${a.y} C${a.x} ${r1(c1y)} ${r1(c2x)} ${r1(ym)} ${r1(xm)} ${r1(ym)} S${b.x} ${r1(ym + (1 - k) * (b.y - ym))} ${b.x} ${b.y}`
+    const c3y = ym + (1 - k) * (b.y - ym)
+    const d = `M${a.x} ${a.y} C${a.x} ${r1(c1y)} ${r1(c2x)} ${r1(ym)} ${r1(xm)} ${r1(ym)} S${b.x} ${r1(c3y)} ${b.x} ${b.y}`
+    if (ds.clear) {
+      const lane = clearLane(root, ds.clear, a, b, xl, (t) => [bez(a.x, a.x, c2x, xm, t), bez(a.y, c1y, ym, ym, t)], (t) => [bez(xm, 2 * xm - c2x, b.x, b.x, t), bez(ym, ym, c3y, b.y, t)])
+      if (lane) { segs.push({ d: lane, twig: null }); continue }
+    }
     let twig: Seg['twig'] = null
     if (!mobile && ds.swing === undefined) {
       // A short twig off the first leg, curling toward the nearer page edge.

@@ -292,6 +292,13 @@ main { position: relative; }
   .hero-foot { display: grid; gap: 24px; } .ctas { display: grid; } .ctas .btn { padding: 13px 20px; }
   .art-1 { right: auto; left: var(--gutter); top: auto; bottom: 330px; } .art-1 .frag { font-size: 11px; padding: 10px 14px; }
   .art-2 { display: none; }
+  /* The chip is pinned above the intro, which wraps to four lines on narrow phones (+25px), so it sits higher there; on short phones there is no room between headline and intro, so the decorative chip is dropped. */
+  @media (max-width: 400px) { .art-1 { bottom: 356px; } }
+  @media (max-height: 720px) { .art-1 { display: none; } }
+  /* On short phones the intro sits right under the headline, so the line's opening stretch (already drawn at load) would run into it. */
+  @media (max-height: 700px) { .hero-foot { margin-top: 56px; } }
+  /* At 320px the name, Resume pill and menu button need slightly less room between them. */
+  @media (max-width: 340px) { .nav { gap: 10px; } .nav-cv { padding: 7px 10px; } }
   .art-3 { right: -40px; top: 140px; } .orb { width: 160px; height: 160px; }
   .about { grid-template-columns: 1fr; gap: 20px; align-content: center; padding-top: 96px; }
   .about h2 { font-size: 44px; }

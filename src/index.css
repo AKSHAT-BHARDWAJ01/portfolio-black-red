@@ -157,6 +157,8 @@ a:hover > .cv-ic, a:focus-visible > .cv-ic { transform: translateY(2px); }
 .plinks .src:hover, .plinks .src:focus-visible { color: var(--tx); border-color: var(--red-hi); }
 .plinks .src:hover .src-ic, .plinks .src:focus-visible .src-ic { transform: translate(2px, -2px); color: var(--red-hi); }
 .plinks .src:hover .gh { transform: rotate(-8deg); }
+.src-fork { margin-left: 8px; padding: 1px 6px; border: 1px solid var(--line-control); border-radius: 4px; font: 10px/1.5 'JetBrains Mono', monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--tx2); vertical-align: 1px; }
+.fork-note { display: block; margin-top: 6px; font-size: 13px; color: var(--tx2); }
 
 /* ---- Nerve line: sits above section backgrounds (all transparent) and beneath every piece of content ---- */
 #hero, .exp, .work, .process, .research, .toolkit, .contact { position: relative; z-index: 10; }

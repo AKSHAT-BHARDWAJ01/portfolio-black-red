@@ -37,7 +37,9 @@ export function CaseStudy({ slug, onClose, onOpen }: Props) {
             <div><dt className="label">Kind</dt><dd>{p.kind}</dd></div>
             <div><dt className="label">Stack</dt><dd>{p.tags.join(' · ')}</dd></div>
             <div><dt className="label">Visual</dt><dd>Conceptual illustration — not a product screenshot</dd></div>
-            {REPOS[p.slug] && <div><dt className="label">Source</dt><dd><a className="doi" href={REPOS[p.slug]} target="_blank" rel="noreferrer">{REPOS[p.slug].replace('https://', '')} ↗<span className="sr-only"> (opens in a new tab)</span></a></dd></div>}
+            {REPOS[p.slug] && <div><dt className="label">Source</dt><dd><a className="doi" href={REPOS[p.slug].url} target="_blank" rel="noreferrer">{REPOS[p.slug].url.replace('https://', '')} ↗<span className="sr-only"> (opens in a new tab)</span></a>
+              {REPOS[p.slug].fork && <span className="fork-note">Fork of {REPOS[p.slug].fork}</span>}
+              {REPOS[p.slug].alias && <span className="fork-note">Named {REPOS[p.slug].alias} in the repository</span>}</dd></div>}
             {p.link && <div><dt className="label">Paper</dt><dd><a className="doi" href={p.link.href} target="_blank" rel="noreferrer">DOI {PUBLICATION.doi} ↗</a></dd></div>}
           </dl>
         </aside>

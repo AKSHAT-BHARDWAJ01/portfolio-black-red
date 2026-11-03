@@ -1,5 +1,8 @@
 // Content (source: Oct 9 two-page resume). Nothing here is invented: projects carry only
 // resume features and outcomes list only resume-stated results.
+// Exception: project technologies, features and outcomes were checked against the linked repositories
+// (manifests, source and git history, 2026-11-02). Anything they do not support is left out, so some
+// project technologies and test or CI claims on the resume are not repeated here.
 
 export const LINKS = {
   email: 'mailto:akshatbhardwaj0801@gmail.com',
@@ -14,11 +17,14 @@ export const LINKS = {
 
 // Project source repositories, by project slug. Each URL is the one linked from the two-page resume
 // and was confirmed public on GitHub (2026-10-31). Leave a slug out to hide its "View source" link.
-export const REPOS: Record<string, string> = {
-  'healthcare-ai': 'https://github.com/AKSHAT-BHARDWAJ01/HealthCare.Ai',
-  taskflow: 'https://github.com/AKSHAT-BHARDWAJ01/task-management-app',
-  'burry-ai': 'https://github.com/AKSHAT-BHARDWAJ01/BurryAI',
-  webopedia: 'https://github.com/AKSHAT-BHARDWAJ01/Wikipedia_HackOmania',
+// `fork` is the upstream repository when the linked repository is a fork of it, and is shown as such.
+// `alias` is the name the repository itself uses for the project, when it differs from the name here.
+export type Repo = { url: string; fork?: string; alias?: string }
+export const REPOS: Record<string, Repo> = {
+  'healthcare-ai': { url: 'https://github.com/AKSHAT-BHARDWAJ01/HealthCare.Ai', fork: 'murtuza777/HealthCare.Ai' },
+  taskflow: { url: 'https://github.com/AKSHAT-BHARDWAJ01/task-management-app' },
+  'burry-ai': { url: 'https://github.com/AKSHAT-BHARDWAJ01/BurryAI', fork: 'murtuza777/BurryAI' },
+  webopedia: { url: 'https://github.com/AKSHAT-BHARDWAJ01/Wikipedia_HackOmania', fork: 'murtuza777/Wikipedia_HackOmania', alias: 'Wajipedia' },
 }
 
 export const SECTIONS = ['about', 'experience', 'work', 'process', 'research', 'toolkit', 'contact'] as const
@@ -39,8 +45,8 @@ export const PROJECTS: Project[] = [
   {
     slug: 'healthcare-ai', name: 'Healthcare.AI', kind: 'AI Health Prediction Platform', marker: 'IEEE research publication · 2026',
     desc: 'An integrated healthcare AI platform designed to bring patient information, medical reports, and AI-assisted health insights into one experience.',
-    tags: ['React', 'FastAPI', 'Supabase', 'PyTorch', 'Hugging Face', 'JWT'],
-    features: ['NLP-based symptom analysis and preliminary health insights.', 'Secure medical report upload and storage, with AI-assisted summaries.', 'QR-code-based sharing of reports.', 'A unified patient profile containing reports, diagnoses, medications, and AI observations.', 'Caregiver support, emergency contacts, health alerts, and secure report sharing.'],
+    tags: ['Next.js', 'React', 'TypeScript', 'Supabase', 'Tailwind CSS'],
+    features: ['LLM-assisted symptom analysis and preliminary health insights.', 'Secure medical report upload and storage, with AI-assisted summaries.', 'QR-code-based sharing of reports.', 'A unified patient profile containing reports, diagnoses, medications, and AI observations.', 'Caregiver support, emergency contacts, health alerts, and secure report sharing.'],
     outcomes: ['Published at the 2026 IEEE International Conference on Emerging Computing and Intelligent Technologies (ICoECIT), Hyderabad, pp. 1–5.', 'Presented at ICCIDSDT 2026, MANUU, Hyderabad (Jan 2026) — a presentation, separate from the publication.'],
     link: { label: 'Read the IEEE paper ↗', href: LINKS.doi },
   },
@@ -48,20 +54,20 @@ export const PROJECTS: Project[] = [
     slug: 'taskflow', name: 'TaskFlow', kind: 'Full-Stack Task Management Platform',
     desc: 'A full-stack productivity application built around task organization, secure access, progress tracking, and an analytics-driven workflow.',
     tags: ['React', 'FastAPI', 'Supabase', 'PostgreSQL', 'JWT', 'Docker', 'Vercel'],
-    features: ['JWT authentication and bcrypt password hashing.', 'Role-based access control and session management.', 'Full create, read, update, and delete task workflows.', 'Status updates and priority-based filtering.', 'Search across titles, descriptions, categories, status, and priority.', 'Analytics with completion-rate charts and task-status distributions.', 'Deployed through Vercel with Supabase PostgreSQL.', 'Automated tests with pytest and Vitest; CI/CD through GitHub Actions.'],
-    outcomes: ['Automated tests written with pytest and Vitest.', 'CI/CD through GitHub Actions; deployed on Vercel with Supabase PostgreSQL.'],
+    features: ['JWT authentication and bcrypt password hashing.', 'JWT access tokens for session handling.', 'Full create, read, update, and delete task workflows.', 'Status updates and priority-based filtering.', 'Search across titles, descriptions, categories, status, and priority.', 'Analytics with completion-rate charts and task-status distributions.', 'Configured for Vercel deployment with Supabase PostgreSQL.', 'Automated tests for the reminder engine, notification access and toast policy (Python unittest and the Node test runner).'],
+    outcomes: ['Automated tests for the reminder engine, notification access and toast policy.', 'Configured for Vercel with Supabase PostgreSQL.'],
   },
   {
     slug: 'burry-ai', name: 'Burry AI', kind: 'Personal Finance Advisor',
     desc: 'An AI-oriented personal finance application for understanding spending patterns and exploring more informed financial decisions.',
-    tags: ['React', 'FastAPI', 'PostgreSQL', 'Scikit-Learn', 'Pandas', 'NumPy'],
+    tags: ['Next.js', 'React', 'TypeScript', 'Cloudflare Workers', 'Cloudflare D1'],
     features: ['Personalized recommendations based on spending trends and financial goals.', 'Income and expense tracking with data visualizations.', 'Cost-optimization insights to identify avoidable expenses.', 'Trend analysis, category breakdowns, and income-versus-spending comparisons.'],
     outcomes: [],
   },
   {
     slug: 'webopedia', name: 'Webopedia', kind: 'Accessible Wikipedia Clone',
     desc: 'An accessible information-discovery experience focused on making articles and knowledge more approachable.',
-    tags: ['React', 'Wikipedia API', 'Web Speech API', 'CSS'],
+    tags: ['HTML', 'JavaScript', 'Wikipedia API', 'Web Speech API', 'CSS'],
     features: ['Dynamic article search and content rendering through the Wikipedia API.', 'Live article and image retrieval.', 'Assistive navigation using a floating action button.', 'Text-to-speech for audio-based content consumption.', 'Built with Team Blaze at the Hack-O-Mania Hackathon, 2023.'],
     outcomes: ['1st Place at Hack-O-Mania (GDSC and DSS, VJIT), Nov 2023 — built with Team Blaze in 24 hours.'],
   },

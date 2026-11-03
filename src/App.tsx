@@ -191,7 +191,7 @@ export default function App() {
                 <ul className="tags" aria-label="Technologies">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>
                 <div className="plinks">
                   <a href={`#/work/${p.slug}`} onClick={caseLink(p.slug)}>View case study<span className="sr-only">: {p.name}</span> →</a>
-                  {REPOS[p.slug] && <a className="src" href={REPOS[p.slug]} target="_blank" rel="noreferrer"><GitHubMark /><span>View source<span className="sr-only">: {p.name} on GitHub (opens in a new tab)</span> <span className="src-ic" aria-hidden>↗</span></span></a>}
+                  {REPOS[p.slug] && <a className="src" href={REPOS[p.slug].url} target="_blank" rel="noreferrer"><GitHubMark /><span>View source<span className="sr-only">: {p.name} on GitHub{REPOS[p.slug].fork ? `, a fork of ${REPOS[p.slug].fork}` : ''} (opens in a new tab)</span> <span className="src-ic" aria-hidden>↗</span>{REPOS[p.slug].fork && <span className="src-fork" aria-hidden>fork</span>}</span></a>}
                   {p.link && <a href={p.link.href} target="_blank" rel="noreferrer">{p.link.label}<span className="sr-only"> (opens in a new tab)</span></a>}
                 </div>
               </div>
